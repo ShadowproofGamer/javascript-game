@@ -1,0 +1,12 @@
+
+var sword = {
+    src:"assets/Dungeon.png",
+    sx:290,
+    sy:152,
+    sw:12,
+    sh:24,
+    dx:300,
+    dy:300,
+    rotation:0,
+
+}
