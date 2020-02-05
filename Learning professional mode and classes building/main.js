@@ -3,6 +3,7 @@ function init() {
     imageManager = new ImageManager("assets/boss_bee.png");
     imageManager.load(FilesToLoad, onLoaded, onProgress);
     initListeners();
+    heroMove();
 
 }
 
@@ -22,8 +23,7 @@ function onLoaded() {
     epicweapon = imageManager.get("epicweapon");
     fantasyweapon = imageManager.get("fantasyweapon");
     sword.object = dungeon;
-    loop();
-    again = requestAnimationFrame(loop());
+    repaint(canvas);
 }
 
 
@@ -50,8 +50,6 @@ var initListeners = function(){
         keysPressed[e.which]= true;
         //console.log(e.which);
         //console.log(sword.rotation);
-        if(keysPressed[79]){loop();}
-        if(keysPressed[80]){stopLoop();}
     });
     addEventListener("keyup", function(e){
         keysPressed[e.which]= false;
@@ -65,8 +63,7 @@ var heroMove = function(){
     if(keysPressed[81]){sword.rotation -= 6}
     if(keysPressed[69]){sword.rotation += 6}
     if(keysPressed[32]){shotLaunched=true}
-
-    //requestAnimationFrame(arguments.callee);
-    // *teraz w loop()*
+    if(keysPressed[79]){repaint(canvas)}
+    requestAnimationFrame(arguments.callee);
 
 }

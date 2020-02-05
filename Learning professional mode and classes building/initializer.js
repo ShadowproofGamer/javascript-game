@@ -58,7 +58,7 @@ _p._loadItem = function(queueItem, itemCounter, onDone, onProgress) {
 _p._onItemLoaded = function(queueItem, itemCounter, onDone, onProgress, success) {
     itemCounter.loaded++;
     onProgress && onProgress(itemCounter.loaded, itemCounter.total, queueItem.key, queueItem.path, success);
-    if (itemCounter.loaded == itemCounter.total) {
+    if (itemCounter.loaded === itemCounter.total) {
         onDone && onDone();
     }
 };
