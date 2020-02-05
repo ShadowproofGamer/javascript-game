@@ -9,18 +9,15 @@ var repaint = function(){
     animsDone++;
 
     var ctx = canvas.getContext('2d');
-
     //czyszczenie płótna:
     ctx.fillStyle = "white";
     ctx.fillRect(0,0, canvas.width, canvas.height);
     ctx.beginPath();
-
     //nie pozwala żeby koło wyszło poza ramy:
     if(sword.dy<12)sword.dy=12;
     if(sword.dx<12)sword.dx=12;
     if(sword.dy>canvas.height-12)sword.dy=canvas.height-12;
     if(sword.dx>canvas.width-12)sword.dx=canvas.width-12;
-
     //rysuje koło (bohatera):
     ctx.fillStyle = "orange";
     ctx.strokeStyle = "black";
@@ -28,7 +25,14 @@ var repaint = function(){
     ctx.fill();
     ctx.stroke();
 
+
+
+
+
+
+
     if(shotLaunched === false){
+        currentLength=0;
         //pobiera dane żeby poprawnie obsłużyć ewentualny strzał:
         pos = {
             dx:sword.dx,
@@ -37,7 +41,6 @@ var repaint = function(){
             py:0,
             rotation:sword.rotation
         };
-
         //rysuje mieczyk u gracza z właściwym obrotem:
         ctx.save();
         ctx.translate(sword.dx, sword.dy);
@@ -45,7 +48,6 @@ var repaint = function(){
         ctx.drawImage(sword.object,sword.sx,sword.sy,sword.sw,sword.sh,0-(sword.sw/2),0-sword.sh,sword.sw,sword.sh);
         ctx.restore();
     }
-
     if(shotLaunched === true){
 
         ctx.save();
@@ -95,21 +97,33 @@ var repaint = function(){
         ctx.rotate((pos.rotation/180)*Math.PI);
         ctx.drawImage(sword.object,sword.sx,sword.sy,sword.sw,sword.sh,0-(sword.sw/2),0-sword.sh,sword.sw,sword.sh);
         ctx.restore();
+
         //ustala czy broń jest dostatecznie blisko gracza
         if(Math.abs(pos.py-sword.dy) <= 20){
             if(Math.abs(pos.px-sword.dx) <= 20){
-                // ![testowe] stos wywołań do kontroli pozycji podnoszącego broń bohatera, do pozycji broni:
+                /* ![testowe] stos wywołań do kontroli pozycji podnoszącego broń bohatera, do pozycji broni:
                 console.log("sdx: "+sword.dx);
                 console.log("sdy: "+sword.dy);
                 console.log("dx: "+pos.dx);
                 console.log("dy: "+pos.dy);
                 console.log("px: "+pos.px);
                 console.log("py: "+pos.py);
+                 */
                 //powoduje powrót broni do ręki właściciela:
                 shotLaunched = false;
+
             }
         }
     }
+
+
+
+
+
+
+
+
+
     //dla testów kotwiczki mieczyka
     ctx.beginPath();
     ctx.fillStyle = "red";
@@ -140,7 +154,7 @@ var repaint = function(){
     //console.log("czas: "+t+ " liczba animacji: "+ animsDone);
 
 
-    // eksperymenty z hookami *teraz w loop()*
-    //renderHook = requestAnimationFrame(arguments.callee);
-    //if(keysPressed[80]){cancelAnimationFrame(renderHook)}
+    // eksperymenty z hookami
+    renderHook = requestAnimationFrame(arguments.callee);
+    if(keysPressed[80]){cancelAnimationFrame(renderHook)}
 };

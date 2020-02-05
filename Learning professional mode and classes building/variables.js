@@ -9,7 +9,7 @@ var epicweapon;
 var fantasyweapon;
 var canvas;
 var keysPressed = [];
-var again;
+var shotCount = 0;
 var shotLaunched = false;
 var pos;
-//oryginalnie Renderer.js
+
